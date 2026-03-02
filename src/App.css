@@ -27,11 +27,26 @@ body {
   width: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 1rem;
+  justify-content: flex-start;
+  padding: 3rem 1rem;
   position: relative;
   overflow: hidden;
+}
+
+/* Decorative ambient glow behind countdown container */
+.app::after {
+  content: '';
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(168, 199, 106, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Subtle grid pattern overlay */
@@ -45,6 +60,18 @@ body {
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
+}
+
+/* Layout split wrapper — stacked on mobile, side-by-side on desktop */
+.layout-split {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  gap: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -63,13 +90,19 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Star badge */
+/* Star badge — SVG inline via component */
 .badge {
-  font-size: 3rem;
-  color: #c8a84e;
-  text-shadow: 0 0 20px rgba(200, 168, 78, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 0.5rem;
   animation: pulse 3s ease-in-out infinite;
+}
+
+.badge svg {
+  width: 52px;
+  height: 52px;
+  filter: drop-shadow(0 0 12px rgba(200, 168, 78, 0.5));
 }
 
 @keyframes pulse {
@@ -167,7 +200,9 @@ body {
   color: #e8e4d0;
   line-height: 1;
   animation: flipIn 0.4s ease-out;
-  text-shadow: 0 0 15px rgba(168, 199, 106, 0.3);
+  text-shadow:
+    0 0 15px rgba(168, 199, 106, 0.3),
+    0 0 30px rgba(168, 199, 106, 0.1);
 }
 
 @keyframes flipIn {
@@ -323,4 +358,62 @@ body {
   .date-value {
     font-size: 0.95rem;
   }
+}
+
+/* Desktop: two-column split layout */
+@media (min-width: 900px) {
+  /* Lock viewport — only message list scrolls internally */
+  body {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .app {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2rem 3rem;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .layout-split {
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 1100px;
+    gap: 2rem;
+  }
+
+  .container {
+    max-width: 420px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 2rem;
+  }
+
+  /* Countdown numbers scale down slightly to fit narrower column */
+  .time-number {
+    font-size: 2.2rem;
+  }
+
+  .time-block {
+    min-width: 56px;
+  }
+
+  .name {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+
+  .subtitle {
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  .badge { animation: none; }
+  .time-number { animation: none; }
+  .progress-fill::after { animation: none; }
 }

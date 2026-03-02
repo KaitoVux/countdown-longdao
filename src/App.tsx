@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import './styles/message-board.css'
+import { MessageList } from './components/message-list'
 
 const ENLIST_DATE = new Date('2026-03-04T00:00:00').getTime()
 const RETURN_DATE = new Date('2028-03-04T00:00:00').getTime()
@@ -47,8 +49,13 @@ function App() {
 
   return (
     <div className="app">
+      <div className="layout-split">
       <div className="container">
-        <div className="badge">★</div>
+        <div className="badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#c8a84e">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
         <h1 className="name">LONG ĐÀO</h1>
         <p className="subtitle">NGHĨA VỤ QUÂN SỰ 2026 - 2028</p>
 
@@ -110,6 +117,9 @@ function App() {
         )}
 
         <p className="footer-text">Chờ ngày anh về! 💪🇻🇳</p>
+      </div>
+
+      <MessageList />
       </div>
     </div>
   )

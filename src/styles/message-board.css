@@ -48,6 +48,7 @@
   font-weight: 700;
   color: #c8a84e;
   margin-left: 0.6rem;
+  transform-origin: center;
 }
 
 /* ── Form ── */
@@ -59,6 +60,8 @@
   margin-bottom: 1.5rem;
   backdrop-filter: blur(10px);
   transition: border-color 0.3s ease-out;
+  position: relative;
+  overflow: hidden;
 }
 
 .message-form:focus-within {
@@ -136,22 +139,69 @@
   letter-spacing: 2px;
   cursor: pointer;
   transition: all 0.2s ease-out;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .form-submit:hover:not(:disabled) {
   background: linear-gradient(135deg, #6a8a3a, #8aaa4a);
   box-shadow: 0 0 20px rgba(168, 199, 106, 0.25);
-  transform: translateY(-1px);
 }
 
 .form-submit:active:not(:disabled) {
-  transform: translateY(0);
   box-shadow: 0 0 10px rgba(168, 199, 106, 0.15);
 }
 
 .form-submit:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+.form-submit-label {
+  position: relative;
+  z-index: 2;
+}
+
+.form-submit-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(232, 228, 208, 0.3);
+  border-top-color: rgba(232, 228, 208, 0.95);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.form-submit-glint {
+  position: absolute;
+  inset: -30% auto -30% -30%;
+  width: 35%;
+  transform: skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.form-send-trail {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f5d47b 0%, rgba(245, 212, 123, 0.2) 60%, transparent 75%);
+  box-shadow: 0 0 20px rgba(245, 212, 123, 0.55);
+  left: 20%;
+  bottom: 18%;
+  pointer-events: none;
 }
 
 .form-error {
@@ -237,6 +287,7 @@
   gap: 1rem;
   /* Extra bottom padding so last cards aren't hidden by fade */
   padding-bottom: 8px;
+  perspective: 800px;
 }
 
 /* ── Message Card ── */
@@ -246,9 +297,9 @@
   border-radius: 10px;
   padding: 1.1rem;
   backdrop-filter: blur(8px);
-  animation: cardFadeIn 0.4s ease-out both;
   transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
   cursor: default;
+  will-change: transform, opacity;
 }
 
 .message-card:hover {
@@ -264,6 +315,27 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.message-card.fresh {
+  border-color: rgba(200, 168, 78, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(200, 168, 78, 0.35),
+    0 8px 20px rgba(200, 168, 78, 0.18);
+  animation: freshPulse 2.4s ease-out both;
+}
+
+@keyframes freshPulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(200, 168, 78, 0.45),
+      0 8px 20px rgba(200, 168, 78, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 0 14px rgba(200, 168, 78, 0),
+      0 2px 14px rgba(200, 168, 78, 0.05);
   }
 }
 
@@ -394,7 +466,8 @@
 /* Accessibility: reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .message-card { animation: none; }
+  .message-card.fresh { animation: none; }
   .form-success { animation: none; }
   .loading-spinner { animation: none; }
-  .form-submit:hover:not(:disabled) { transform: none; }
+  .form-send-trail { display: none; }
 }

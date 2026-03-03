@@ -39,7 +39,7 @@ export async function getMessages(): Promise<Message[]> {
   })
 }
 
-export async function addMessage(name: string, content: string): Promise<void> {
+export async function addMessage(name: string, content: string): Promise<string> {
   const trimmedName = name.trim()
   const trimmedContent = content.trim()
 
@@ -50,9 +50,11 @@ export async function addMessage(name: string, content: string): Promise<void> {
     throw new Error('Lời nhắn không hợp lệ (1-500 ký tự)')
   }
 
-  await addDoc(messagesRef, {
+  const docRef = await addDoc(messagesRef, {
     name: trimmedName,
     content: trimmedContent,
     createdAt: serverTimestamp(),
   })
+
+  return docRef.id
 }

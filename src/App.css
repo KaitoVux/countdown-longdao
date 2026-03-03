@@ -137,7 +137,9 @@ body {
   justify-content: center;
   gap: 1.5rem;
   margin-bottom: 2rem;
-  padding: 1rem;
+  width: calc(100% - 1.25rem);
+  margin-inline: auto;
+  padding: 1rem clamp(1rem, 4vw, 1.75rem);
   background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   border: 1px solid rgba(120, 150, 80, 0.2);
@@ -352,7 +354,8 @@ body {
 
   .dates {
     gap: 0.75rem;
-    padding: 0.75rem;
+    width: calc(100% - 0.5rem);
+    padding: 0.75rem 1.1rem;
   }
 
   .date-value {
@@ -384,15 +387,20 @@ body {
   }
 
   .container {
-    max-width: 420px;
+    max-width: 500px;
     flex-shrink: 0;
     position: sticky;
     top: 2rem;
   }
 
+  .dates {
+    width: 100%;
+    padding: 1rem 1.75rem;
+  }
+
   /* Countdown numbers scale down slightly to fit narrower column */
   .time-number {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
 
   .time-block {

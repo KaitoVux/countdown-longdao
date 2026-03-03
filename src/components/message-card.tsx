@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import type { Message } from '../services/message-service'
 
 function formatRelativeTime(date: Date): string {
@@ -18,13 +19,32 @@ function formatRelativeTime(date: Date): string {
 interface MessageCardProps {
   message: Message
   index: number
+  isFresh?: boolean
 }
 
-export function MessageCard({ message, index }: MessageCardProps) {
+export function MessageCard({ message, index, isFresh = false }: MessageCardProps) {
+  const prefersReducedMotion = useReducedMotion()
+
   return (
-    <div
-      className="message-card"
-      style={{ animationDelay: `${Math.min(index * 0.08, 0.64)}s` }}
+    <motion.article
+      className={`message-card${isFresh ? ' fresh' : ''}`}
+      layout
+      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.96, filter: 'blur(3px)' }}
+      animate={prefersReducedMotion
+        ? { opacity: 1 }
+        : {
+            opacity: 1,
+            y: 0,
+            scale: isFresh ? [0.985, 1.015, 1] : 1,
+            filter: 'blur(0px)',
+          }}
+      exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -10, scale: 0.97 }}
+      transition={{
+        duration: prefersReducedMotion ? 0.18 : 0.42,
+        delay: prefersReducedMotion ? 0 : Math.min(index * 0.06, 0.42),
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={prefersReducedMotion ? undefined : { y: -2, scale: 1.005 }}
     >
       <div className="message-card-header">
         <span className="message-card-star">&#9734;</span>
@@ -34,6 +54,6 @@ export function MessageCard({ message, index }: MessageCardProps) {
         {formatRelativeTime(message.createdAt)}
       </span>
       <p className="message-card-content">{message.content}</p>
-    </div>
+    </motion.article>
   )
 }

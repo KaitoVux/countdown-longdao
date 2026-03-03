@@ -455,6 +455,8 @@
   .message-section {
     margin-top: 0;
     max-width: none;
+    flex: 1;
+    min-width: 420px;
   }
 
   .message-scroll-area {

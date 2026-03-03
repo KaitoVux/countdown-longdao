@@ -112,6 +112,11 @@ function App() {
                   style={{ width: `${progress}%` }}
                 />
               </div>
+              <div className="progress-milestones">
+                <div className="progress-milestone" />
+                <div className="progress-milestone" />
+                <div className="progress-milestone" />
+              </div>
             </div>
           </>
         )}

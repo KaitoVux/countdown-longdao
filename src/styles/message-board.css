@@ -53,8 +53,8 @@
 
 /* ── Form ── */
 .message-form {
-  background: rgba(30, 43, 18, 0.85);
-  border: 1.5px solid rgba(120, 150, 80, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1.5px solid rgba(200, 168, 78, 0.12);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -86,7 +86,7 @@
 .form-textarea {
   width: 100%;
   background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(120, 150, 80, 0.25);
+  border: 1px solid rgba(200, 168, 78, 0.12);
   border-radius: 8px;
   padding: 0.7rem 0.9rem;
   color: #e8e4d0;
@@ -246,18 +246,18 @@
 }
 
 .message-scroll-area::-webkit-scrollbar-thumb {
-  background: rgba(120, 150, 80, 0.35);
+  background: rgba(200, 168, 78, 0.25);
   border-radius: 3px;
 }
 
 .message-scroll-area::-webkit-scrollbar-thumb:hover {
-  background: rgba(120, 150, 80, 0.55);
+  background: rgba(200, 168, 78, 0.4);
 }
 
 /* Firefox scrollbar */
 .message-scroll-area {
   scrollbar-width: thin;
-  scrollbar-color: rgba(120, 150, 80, 0.35) rgba(0, 0, 0, 0.15);
+  scrollbar-color: rgba(200, 168, 78, 0.25) rgba(0, 0, 0, 0.15);
 }
 
 /* Bottom fade gradient overlay — indicates more content below */
@@ -268,7 +268,7 @@
   left: 0;
   right: 6px;
   height: 40px;
-  background: linear-gradient(to top, rgba(26, 42, 15, 0.95), transparent);
+  background: linear-gradient(to top, rgba(15, 20, 16, 0.95), transparent);
   pointer-events: none;
   border-radius: 0 0 10px 10px;
   opacity: 1;
@@ -292,8 +292,8 @@
 
 /* ── Message Card ── */
 .message-card {
-  background: rgba(30, 43, 18, 0.8);
-  border: 1px solid rgba(120, 150, 80, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(200, 168, 78, 0.1);
   border-radius: 10px;
   padding: 1.1rem;
   backdrop-filter: blur(8px);
@@ -303,8 +303,8 @@
 }
 
 .message-card:hover {
-  border-color: rgba(200, 168, 78, 0.35);
-  box-shadow: 0 2px 16px rgba(200, 168, 78, 0.1);
+  border-color: rgba(200, 168, 78, 0.3);
+  box-shadow: 0 4px 20px rgba(200, 168, 78, 0.12);
 }
 
 @keyframes cardFadeIn {
@@ -346,9 +346,20 @@
   margin-bottom: 0.2rem;
 }
 
-.message-card-star {
+.message-card-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(200, 168, 78, 0.15);
+  border: 1px solid rgba(200, 168, 78, 0.3);
   color: #c8a84e;
-  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .message-card-name {
@@ -403,8 +414,8 @@
   color: rgba(200, 196, 170, 0.5);
   font-size: 0.85rem;
   line-height: 1.6;
-  background: rgba(30, 43, 18, 0.5);
-  border: 1px dashed rgba(120, 150, 80, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(200, 168, 78, 0.15);
   border-radius: 12px;
 }
 

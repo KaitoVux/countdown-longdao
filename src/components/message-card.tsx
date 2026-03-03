@@ -47,7 +47,7 @@ export function MessageCard({ message, index, isFresh = false }: MessageCardProp
       whileHover={prefersReducedMotion ? undefined : { y: -2, scale: 1.005 }}
     >
       <div className="message-card-header">
-        <span className="message-card-star">&#9734;</span>
+        <span className="message-card-avatar">{message.name.charAt(0).toUpperCase()}</span>
         <span className="message-card-name">{message.name}</span>
       </div>
       <span className="message-card-time">

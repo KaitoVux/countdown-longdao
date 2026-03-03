@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -12,15 +12,9 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #1a2a0f 0%, #2d3a1a 25%, #1e2b12 50%, #3a4a2a 75%, #1a2a0f 100%);
-  background-size: 400% 400%;
-  animation: bgShift 20s ease infinite;
+  font-weight: 500;
+  background: linear-gradient(135deg, #0F1410 0%, #1A1F16 50%, #12170E 100%);
   color: #e8e4d0;
-}
-
-@keyframes bgShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
 }
 
 .app {
@@ -35,31 +29,46 @@ body {
   overflow: hidden;
 }
 
-/* Decorative ambient glow behind countdown container */
+/* Floating ambient orb 1 — gold */
 .app::after {
   content: '';
   position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(168, 199, 106, 0.06) 0%, transparent 70%);
+  top: 10%;
+  left: 25%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(200, 168, 78, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  animation: orbDrift1 18s ease-in-out infinite;
 }
 
-/* Subtle grid pattern overlay */
+/* Floating ambient orb 2 — olive */
 .app::before {
   content: '';
   position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+  bottom: 10%;
+  right: 20%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(90, 122, 42, 0.09) 0%, transparent 70%);
+  border-radius: 50%;
   pointer-events: none;
   z-index: 0;
+  animation: orbDrift2 22s ease-in-out infinite;
+}
+
+@keyframes orbDrift1 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(40px, -30px); }
+  66% { transform: translate(-20px, 20px); }
+}
+
+@keyframes orbDrift2 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-30px, 25px); }
+  66% { transform: translate(25px, -35px); }
 }
 
 /* Layout split wrapper — stacked on mobile, side-by-side on desktop */
@@ -79,8 +88,8 @@ body {
   z-index: 1;
   max-width: 600px;
   width: 100%;
-  background: rgba(30, 43, 18, 0.85);
-  border: 2px solid rgba(120, 150, 80, 0.4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(200, 168, 78, 0.15);
   border-radius: 16px;
   padding: 2.5rem 2rem;
   text-align: center;
@@ -100,14 +109,16 @@ body {
 }
 
 .badge svg {
-  width: 52px;
-  height: 52px;
-  filter: drop-shadow(0 0 12px rgba(200, 168, 78, 0.5));
+  width: 96px;
+  height: 96px;
+  filter:
+    drop-shadow(0 0 16px rgba(200, 168, 78, 0.5))
+    drop-shadow(0 0 40px rgba(200, 168, 78, 0.25));
 }
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
+  50% { transform: scale(1.12); opacity: 0.85; }
 }
 
 /* Name */
@@ -142,7 +153,7 @@ body {
   padding: 1rem clamp(1rem, 4vw, 1.75rem);
   background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  border: 1px solid rgba(120, 150, 80, 0.2);
+  border: 1px solid rgba(200, 168, 78, 0.12);
 }
 
 .date-item {
@@ -193,6 +204,11 @@ body {
   flex-direction: column;
   align-items: center;
   min-width: 70px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(200, 168, 78, 0.12);
+  border-radius: 12px;
+  padding: 0.75rem 0.5rem;
+  backdrop-filter: blur(6px);
 }
 
 .time-number {
@@ -203,8 +219,8 @@ body {
   line-height: 1;
   animation: flipIn 0.4s ease-out;
   text-shadow:
-    0 0 15px rgba(168, 199, 106, 0.3),
-    0 0 30px rgba(168, 199, 106, 0.1);
+    0 0 15px rgba(200, 168, 78, 0.3),
+    0 0 30px rgba(200, 168, 78, 0.1);
 }
 
 @keyframes flipIn {
@@ -259,21 +275,41 @@ body {
 
 .progress-bar {
   width: 100%;
-  height: 12px;
+  height: 20px;
   background: rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid rgba(120, 150, 80, 0.2);
+  border: 1px solid rgba(200, 168, 78, 0.15);
+  position: relative;
 }
 
 .progress-fill {
   height: 100%;
   background: linear-gradient(90deg, #5a7a2a, #a8c76a, #c8a84e);
-  border-radius: 6px;
+  border-radius: 10px;
   transition: width 1s linear;
   position: relative;
   box-shadow: 0 0 10px rgba(168, 199, 106, 0.4);
 }
+
+/* Progress milestones */
+.progress-milestones {
+  position: relative;
+  width: 100%;
+  height: 0;
+}
+
+.progress-milestone {
+  position: absolute;
+  top: -20px;
+  width: 1px;
+  height: 20px;
+  background: rgba(200, 168, 78, 0.3);
+}
+
+.progress-milestone:nth-child(1) { left: 25%; }
+.progress-milestone:nth-child(2) { left: 50%; }
+.progress-milestone:nth-child(3) { left: 75%; }
 
 .progress-fill::after {
   content: '';
@@ -342,6 +378,7 @@ body {
 
   .time-block {
     min-width: 55px;
+    padding: 0.5rem 0.35rem;
   }
 
   .time-number {
@@ -420,7 +457,8 @@ body {
 
 /* Accessibility: reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  body { animation: none; }
+  .app::before,
+  .app::after { animation: none; }
   .badge { animation: none; }
   .time-number { animation: none; }
   .progress-fill::after { animation: none; }
